@@ -1,0 +1,25 @@
+# need to wait on processes to finish before moving on to next
+# need to fix svg files!
+# convert parts of script to functions
+
+# script flow chart
+# generate_files needs broken up into smaller functions
+
+copy files from /defaults to /src to preserve original files.
+
+Display Menu
+	- change bg color [current: #000000]
+		-get new bg color, call change_bg, return to menu
+	- change fill color [current: #000000]
+		-get mew fg color, call change_fg, return to menu
+	- change outline color [current: #000000]
+		-get new outline color, call change_out, return to menu
+	- generate
+		-apply color changes, call generate_files
+	- exit
+
+change_bg - set newBG as value
+change_fg - set newFG as value
+change_out - set outline as value
+generate_files - generate png files from svgs, generate cursors, copy files, cleanup
+

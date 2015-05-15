@@ -1,0 +1,8 @@
+default.tar.gz - exctract to ./default - contains original .svg and .cursor files
+theme.tar.gz - extract to ./theme - contains theme file for installation
+customize.sh - main script
+todo - list of items to complete for new version
+original.sh - original version (0.9.5) of script
+menu.sh - menu to use for new script
+test.sh - script to test parts of script before moving to main
+
