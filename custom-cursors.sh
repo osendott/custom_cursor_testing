@@ -93,7 +93,14 @@ printf "\n"
 
 theme_dark()
 {
-echo "dark option not yet implemented..."
+(cd $PWD/src;
+        find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
+sed -i "s/#e8e8e8/#ff0000/g" "$file"
+sed -i "s/#2d2d2d/#e8e8e8/g" "$file"
+sed -i "s/#ff0000/#2d2d2d/g" "$file"
+sed -i "s/#ffffff/#000000/g" "$file"
+done)
+echo "dark base generated..."
 }
 
 ###########################################################################
@@ -112,6 +119,8 @@ menu
 
 if [[ $themeStyle == d* ]]; then
 theme_dark
+else
+echo "using light base..."
 fi
 
 case "$newColor" in
