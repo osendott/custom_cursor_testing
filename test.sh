@@ -116,7 +116,7 @@ dialog --title "" --radiolist "Select color:" 10 40 3 \
 2> config.dat
 
 color=$(<config.dat)
-#color=<(`cat result.txt`)
+#color=<(`cat config.dat`)
 case $color in
 	1) newColor="#d64933";;
 	2) newColor="#42a5f5";;
