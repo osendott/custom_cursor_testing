@@ -131,6 +131,12 @@ case $color in
         11) get_custom;;
 esac
 
+if [[ $themeStyle == d* ]]; then
+theme_dark
+else
+echo "using light base..."
+fi
+
 theme
 generate_png
 create_cursors
