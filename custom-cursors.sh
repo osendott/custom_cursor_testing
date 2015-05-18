@@ -21,7 +21,6 @@ oldColor="#d64933" # default color for cursors
 
 # extract source files
 tar -xzf src.tar.gz
-wait
 tar -xzf theme.tar.gz
 wait
 
@@ -39,9 +38,9 @@ if [[ `grep "#2d2d2d" "$file"` ]]; then
 echo "Replacing #2d2d2d with #e8e8e8 in $file"
 sed -i "s/#2d2d2d/#e8e8e8/g" "$file"
 fi
-if [[ `grep "#e8e8e8" "$file"` ]]; then
-echo "Replacing #e8e8e8 with #ff0000 in $file"
-sed -i "s/#e8e8e8/#ff0000/g" "$file"
+if [[ `grep "#ff0000" "$file"` ]]; then
+echo "Replacing #ff0000 with #2d2d2d in $file"
+sed -i "s/#ff0000/#2d2d2d/g" "$file"
 fi
 if [[ `grep "#ffffff" "$file"` ]]; then
 echo "Replacing #ffffff with #000000 in $file"
