@@ -1,10 +1,4 @@
-# still need to work on svg files
-
-# complete menu section of script. framework is there.
-# then start finding and fixing problems.
-
-##Script Options##
- -Change (ask user for replacement color, replace orange with it)
- -Default (use orange color, generate the cursors)
- -Manual (extract the files to allow user to manually edit .svg files)
- -Load (do not extract new files, use exisiting files from /src directory, above)
+# clean up script
+# comment
+# ??????
+# profit!
