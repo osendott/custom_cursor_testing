@@ -16,7 +16,7 @@ usrColor="" # custom color from dialog
 exitcode="" # custom color dialog button press
 count="" # counter
 CHANGEDIR=$PWD/src # change to source directory in sub-shell
-OUTDIR=$PWD/theme/custom-cursors/cursors # where to generate files
+OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
 
 # extract source files
