@@ -102,22 +102,24 @@ fi
 done)
 
 # create .png files
+pngCount=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l`
 count=0
 for fileSource in $PWD/src/*.svg
 do
 if [ -f "$fileSource" ]; then
 count=$((count+1))
 file=$(echo $fileSource | cut -d'.' -f1)
-# echo "$count". "$fileSource" -> "$file.png"
-inkscape $fileSource --export-png=$file.png --export-dpi=90
+echo -ne "Generating .png file $count of $pngCount \r"
+inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null
 wait
 else
-echo "no file $fileSource found!"
+echo -ne "no file $fileSource found! \r"
 exit
 fi
 done
 
 # create cursor files
+curCount=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l`
 count=0
 for CURSOR in $PWD/src/*.cursor; do
 BASENAME=$CURSOR
@@ -125,14 +127,17 @@ BASENAME=${BASENAME##*/}
 BASENAME=${BASENAME%.*}
 
 count=$((count+1))
-(cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME)
+echo -ne "Generating .xmc $count of $curCount \r"
+(cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null)
 wait
 done
 
 # install theme
+echo -ne "Installing theme... \r"
 cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
 
 # clean everything up
+echo -ne "Cleaning up... \r"
 rm -rf $PWD/src
 rm -rf $PWD/theme
 rm -rf $PWD/color.tmp
