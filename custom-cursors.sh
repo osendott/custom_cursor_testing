@@ -9,11 +9,9 @@
 # variables #
 #############
 choice="" # light/dark response
-themeStyle="" # light/dark variable
 tmpColor="" # hold user color choice @ menu
 newColor="" # theme color to replace Default
 usrColor="" # custom color from dialog
-exitcode="" # custom color dialog button press
 count="" # counter
 CHANGEDIR=$PWD/src # change to source directory in sub-shell
 OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
@@ -24,7 +22,7 @@ tar -xzf src.tar.gz
 tar -xzf theme.tar.gz
 wait
 
-# light/dark menu ($themeStyle)
+# light/dark menu
 dialog --yes-label "light" --no-label "dark" --yesno "Please choose base:" 6 25
 choice=$?
 case $choice in
@@ -84,10 +82,10 @@ case $tmpColor in
   10) get_Color
 	wait
 
-until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do 
-    get_Color
- done
-    newColor=$usrColor ;;
+until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do
+get_Color
+done
+newColor=$usrColor ;;
 esac
 
 
