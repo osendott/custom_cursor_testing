@@ -29,26 +29,10 @@ case $choice in
   1) 	
 (cd $PWD/src;
         find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
-if [[ `grep "#e8e8e8" "$file"` ]]; then
+sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
+wait
+count=$((count+1)) 
 dialog --title '' --infobox "Creating dark base $count" 10 50
-sed -i "s/#e8e8e8/#ff0000/g" "$file"
-fi
-count=$((count+1))
-if [[ `grep "#2d2d2d" "$file"` ]]; then
-dialog --title '' --infobox "Creating dark base $count" 10 50
-sed -i "s/#2d2d2d/#e8e8e8/g" "$file"
-fi
-count=$((count+1))
-if [[ `grep "#ff0000" "$file"` ]]; then
-dialog --title '' --infobox "Creating dark base $count" 10 50
-sed -i "s/#ff0000/#2d2d2d/g" "$file"
-fi
-count=$((count+1))
-if [[ `grep "#ffffff" "$file"` ]]; then
-dialog --title '' --infobox "Creating dark base $count" 10 50
-sed -i "s/#ffffff/#000000/g" "$file"
-fi
-count=$((count+1))
 done)
 
 wait
