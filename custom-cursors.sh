@@ -43,7 +43,7 @@ get_Color()
   usrColor=$(dialog --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
 }
 
-dialog --radiolist "Select color:" 10 40 3\
+dialog --radiolist "Select color:" 20 25 25\
   1 "Default" on \
   2 "Blue" off \
   3 "Brown" off \
