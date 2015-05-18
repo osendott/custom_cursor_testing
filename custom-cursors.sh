@@ -3,7 +3,7 @@
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
 
-set -x
+# set -x # uncomment this if you wanna see what's going on line-by-line, remove before distribution
 
 #############
 # variables #
