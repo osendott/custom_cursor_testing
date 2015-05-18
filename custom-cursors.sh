@@ -69,11 +69,11 @@ case $tmpColor in
   9) newColor="#ffca28" ;;
   10) get_Color
 
-if  [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]]; then
-    newColor=$usrColor
-  else
+if ! [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]]; then
     usrColor=""
     get_Color
+  else
+    newColor=$usrColor
 fi ;;
 esac
 
