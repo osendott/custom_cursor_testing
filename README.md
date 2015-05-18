@@ -2,7 +2,7 @@
 
 testing repo for custom_cursor project. use caution if using anything from this repo.
 
-![](screens/screen-01.png "startup")
+![](screens/screen-01.png "dark/light")
 ![](screens/screen-02.png "colors")
 ![](screens/screen-03.png "custom-color")
 
