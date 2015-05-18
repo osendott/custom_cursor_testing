@@ -21,6 +21,7 @@ oldColor="#d64933" # default color for cursors
 
 # extract source files
 tar -xzf src.tar.gz
+wait
 tar -xzf theme.tar.gz
 wait
 
