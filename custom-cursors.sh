@@ -1,4 +1,3 @@
-#!/bin/bash
 #############################################
 # noname-cursors v0.9.8 rewrite 17 MAY 2015 #
 # by: William Osendott  & Umut Topuzoglu    #
@@ -21,9 +20,6 @@ OUTDIR=$PWD/theme/custom-cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
 
 # extract source files
-#	might be best to have two sets of source files, one for light-base one for dark-base.
-# 	keep them in single archive, extract proper folder depending on user choice.
-
 tar -xzf src.tar.gz
 tar -xzf theme.tar.gz
 wait
@@ -34,10 +30,22 @@ choice=$?
 case $choice in
   1) (cd $PWD/src;
         find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
+if [[ `grep "#e8e8e8" "$file"` ]]; then
+echo "Replacing #e8e8e8 with #ff0000 in $file"
 sed -i "s/#e8e8e8/#ff0000/g" "$file"
+fi
+if [[ `grep "#2d2d2d" "$file"` ]]; then
+echo "Replacing #2d2d2d with #e8e8e8 in $file"
 sed -i "s/#2d2d2d/#e8e8e8/g" "$file"
-sed -i "s/#ff0000/#2d2d2d/g" "$file"
+fi
+if [[ `grep "#e8e8e8" "$file"` ]]; then
+echo "Replacing #e8e8e8 with #ff0000 in $file"
+sed -i "s/#e8e8e8/#ff0000/g" "$file"
+fi
+if [[ `grep "#ffffff" "$file"` ]]; then
+echo "Replacing #ffffff with #000000 in $file"
 sed -i "s/#ffffff/#000000/g" "$file"
+fi
 done)
 wait
 echo "dark base generated..."
@@ -46,6 +54,7 @@ esac
 get_Color()
 {
   usrColor=$(dialog --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
+  newColor=$usrColor
 }
 
 dialog --radiolist "Select color:" 20 25 25\
@@ -76,7 +85,6 @@ case $tmpColor in
 	wait
 
 until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do 
-    usrColor=""
     get_Color
  done
     newColor=$usrColor ;;
