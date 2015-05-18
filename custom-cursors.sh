@@ -20,8 +20,8 @@ OUTDIR=$PWD/theme/custom-cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
 
 # extract source files
-
-# might be best to have two sets of source files, one for light-base one for dark-base. extract base depending on need.
+#	might be best to have two sets of source files, one for light-base one for dark-base.
+# 	keep them in single archive, extract proper folder depending on user choice.
 
 tar -xzf src.tar.gz
 tar -xzf theme.tar.gz
