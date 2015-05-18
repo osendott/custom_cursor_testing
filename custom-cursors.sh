@@ -23,7 +23,7 @@ tar -xzf theme.tar.gz
 wait
 
 # light/dark menu
-dialog --yes-label "light" --no-label "dark" --yesno "Please choose base:" 6 25
+dialog --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
 choice=$?
 case $choice in
   1) 	
@@ -32,7 +32,7 @@ case $choice in
 sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
 wait
 count=$((count+1)) 
-dialog --title '' --infobox "Creating dark base $count" 10 50
+dialog --title '' --infobox "Creating dark base $count" 3 50
 done)
 
 wait
@@ -87,7 +87,7 @@ if [[ `grep "$oldColor" "$file"` ]]; then
 sed -i "s/$oldColor/$newColor/g" "$file"
 count=$((count+1))
 wait
-dialog --title '' --infobox "add $newColor to file $count" 10 50
+dialog --title '' --infobox "adding $newColor to file $count" 3 50
 fi
 done)
 
@@ -99,17 +99,16 @@ do
 if [ -f "$fileSource" ]; then
 count=$((count+1))
 file=$(echo $fileSource | cut -d'.' -f1)
-dialog --title '' --infobox "generating .png file $count of $pngCount" 10 50
+dialog --title '' --infobox "creating file $count of $pngCount" 3 50
 inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null
 wait
 else
-echo -ne "no file $fileSource found! \r"
+dialog --title 'ERROR' --infobox "no source files found!" 3 50
 exit
 fi
 done
 
 # create cursor files
-dialog --title '' --infobox 'creating cursor theme...' 10 50
 curCount=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l`
 count=0
 for CURSOR in $PWD/src/*.cursor; do
@@ -118,18 +117,18 @@ BASENAME=${BASENAME##*/}
 BASENAME=${BASENAME%.*}
 
 count=$((count+1))
-dialog --title '' --infobox "generating cursor $count of $curCount" 10 50
+dialog --title '' --infobox "generating cursor $count of $curCount" 3 50
 (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null)
 wait
 done
 
 # install theme
-dialog --title '' --infobox "installing theme" 10 50
+dialog --title '' --infobox "installing theme" 3 50
 cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
 wait
 
 # clean everything up
-dialog --title '' --infobox "Clearning up" 10 50
+dialog --title '' --infobox "Cleaning up" 3 50
 rm -rf $PWD/src
 rm -rf $PWD/theme
 rm -rf $PWD/color.tmp
