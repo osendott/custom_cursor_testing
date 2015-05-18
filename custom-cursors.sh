@@ -26,27 +26,29 @@ wait
 dialog --yes-label "light" --no-label "dark" --yesno "Please choose base:" 6 25
 choice=$?
 case $choice in
-  1) (cd $PWD/src;
+  1) echo "Generating dark base files..." 
+
+(cd $PWD/src;
         find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
 if [[ `grep "#e8e8e8" "$file"` ]]; then
-echo "Replacing #e8e8e8 with #ff0000 in $file"
+#echo "Replacing #e8e8e8 with #ff0000 in $file"
 sed -i "s/#e8e8e8/#ff0000/g" "$file"
 fi
 if [[ `grep "#2d2d2d" "$file"` ]]; then
-echo "Replacing #2d2d2d with #e8e8e8 in $file"
+#echo "Replacing #2d2d2d with #e8e8e8 in $file"
 sed -i "s/#2d2d2d/#e8e8e8/g" "$file"
 fi
 if [[ `grep "#ff0000" "$file"` ]]; then
-echo "Replacing #ff0000 with #2d2d2d in $file"
+#echo "Replacing #ff0000 with #2d2d2d in $file"
 sed -i "s/#ff0000/#2d2d2d/g" "$file"
 fi
 if [[ `grep "#ffffff" "$file"` ]]; then
-echo "Replacing #ffffff with #000000 in $file"
+#echo "Replacing #ffffff with #000000 in $file"
 sed -i "s/#ffffff/#000000/g" "$file"
 fi
 done)
 wait
-echo "dark base generated..." ;;
+#echo "dark base generated..." ;;
 esac
 
 get_Color()
@@ -93,7 +95,7 @@ esac
 (cd $PWD/src;
 find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
 if [[ `grep "$oldColor" "$file"` ]]; then
-echo "Replacing $oldColor with $newColor in $file"
+#echo "Replacing $oldColor with $newColor in $file"
 sed -i "s/$oldColor/$newColor/g" "$file"
 wait
 fi
@@ -106,7 +108,7 @@ do
 if [ -f "$fileSource" ]; then
 count=$((count+1))
 file=$(echo $fileSource | cut -d'.' -f1)
-echo "$count". "$fileSource" -> "$file.png"
+# echo "$count". "$fileSource" -> "$file.png"
 inkscape $fileSource --export-png=$file.png --export-dpi=90
 wait
 else
