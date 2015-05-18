@@ -1,6 +1,6 @@
 #############################################
 # noname-cursors v0.9.8 rewrite 17 MAY 2015 #
-# by: William Osendott                      #
+# by: William Osendott  & Umut Topuzoglu    #
 #############################################
 
 set -x
