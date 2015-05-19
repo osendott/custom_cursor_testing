@@ -33,16 +33,25 @@ sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#0
 wait
 count=$((count+1)) 
 dialog --title '' --infobox "Creating dark base $count" 3 50
-done)
-
-wait
+done) 
+wait ;;
 esac
 
 get_Color()
 {
   usrColor=$(dialog --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
-  newColor=$usrColor
+  retval=$?
+  case $retval in
+  1) 
+rm -rf $PWD/src 
+      rm -rf $PWD/theme 
+exit ;;
+255) rm -rf $PWD/src
+     rm -rf $PWD/theme
+     exit ;;
+  esac
 }
+
 
 dialog --radiolist "Select color:" 20 25 25\
   1 "Default" on \
@@ -58,6 +67,13 @@ dialog --radiolist "Select color:" 20 25 25\
 2> color.tmp
 
 tmpColor=$(<color.tmp)
+
+retval=$?
+
+case $retval in
+
+0)
+
 case $tmpColor in
   1) newColor="#d64933" ;;
   2) newColor="#42a5f5" ;;
@@ -75,8 +91,24 @@ until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do
 get_Color
 done
 newColor=$usrColor ;;
-esac
+  
+   *) rm -rf $PWD/src 
+      rm -rf $PWD/theme  
+      exit ;;
+esac;;
 
+
+1)
+rm -rf $PWD/src 
+rm -rf $PWD/theme 
+rm -rf $PWD/color.tmp 
+exit ;;
+255)
+rm -rf $PWD/src 
+rm -rf $PWD/theme 
+rm -rf $PWD/color.tmp 
+exit ;;
+esac
 
 # recolor
 count=0
