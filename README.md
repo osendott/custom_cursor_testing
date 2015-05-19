@@ -1,6 +1,7 @@
 # custom_cursor_testing
 
 testing repo for custom_cursor project. use caution if using anything from this repo.
+getting close to a 1.0 release.
 
 ![](screens/screen-01.png "dark/light")
 ![](screens/screen-02.png "colors")
