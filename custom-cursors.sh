@@ -1,5 +1,5 @@
 #############################################
-# noname-cursors v0.9.8 rewrite 17 MAY 2015 #
+# noname-cursors v0.9.9                     # current code-base written 17 MAY 2015
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
 
