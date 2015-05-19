@@ -45,9 +45,11 @@ get_Color()
   1) 
 rm -rf $PWD/src 
       rm -rf $PWD/theme 
+rm -rf $PWD/color.tmp
 exit ;;
 255) rm -rf $PWD/src
      rm -rf $PWD/theme
+ rm -rf $PWD/color.tmp
      exit ;;
   esac
 }
@@ -94,6 +96,7 @@ newColor=$usrColor ;;
   
    *) rm -rf $PWD/src 
       rm -rf $PWD/theme  
+     rm -rf $PWD/color.tmp
       exit ;;
 esac;;
 
