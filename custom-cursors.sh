@@ -29,7 +29,7 @@ tar -xzf theme.tar.gz
 wait
 
 # light/dark menu
-dialog --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
+dialog --backtitle "Custom Cursors v1.0" --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
 
 choice=$?
 
@@ -42,14 +42,14 @@ case $choice in # read $choice, see which button pressed
           sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
           wait
           count=$((count+1))
-          dialog --title '' --infobox "Creating dark base $count of $colorCount"  3 50
+          dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "Creating dark base $count of $colorCount"  3 50
         done)
         wait ;;
 esac
 
 get_Color() # function created to loop display of dialog box until proper hex-code entered
 {
-  usrColor=$(dialog --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
+  usrColor=$(dialog --backtitle "Custom Cursors v1.0" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
 
   retval=$? # get button press
 
@@ -68,7 +68,7 @@ get_Color() # function created to loop display of dialog box until proper hex-co
 }
 
 # show menu listing color choices
-dialog --radiolist "Select color:" 20 25 25\
+dialog --backtitle "Custom Cursors v1.0" --radiolist "Select color:" 20 25 25\
   1 "Default" on \
   2 "Blue" off \
   3 "Brown" off \
@@ -137,7 +137,7 @@ esac
       sed -i "s/$oldColor/$newColor/g" "$file"
       count=$((count+1))
       wait
-      dialog --title '' --infobox "adding $newColor to file $count of $colorCount" 3 50 # display dialog counting files colored
+      dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "adding $newColor to file $count of $colorCount" 3 50 # display dialog counting files colored
     fi
 done)
 
@@ -149,11 +149,11 @@ done)
     if [ -f "$fileSource" ]; then
       count=$((count+1))
       file=$(echo $fileSource | cut -d'.' -f1)
-      dialog --title '' --infobox "creating file $count of $pngCount" 3 50 # count how many files converted and how many remain
+      dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "creating file $count of $pngCount" 3 50 # count how many files converted and how many remain
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
       wait
     else
-      dialog --title 'ERROR' --infobox "no source files found!" 3 50
+      dialog --backtitle "Custom Cursors v1.0" --title 'ERROR' --infobox "no source files found!" 3 50
       exit
     fi
 done
@@ -167,21 +167,21 @@ done
     BASENAME=${BASENAME%.*}
 
     count=$((count+1))
-    dialog --title '' --infobox "generating cursor $count of $curCount" 3 50 # display how many files converted and how many remain
+    dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "generating cursor $count of $curCount" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
 
 # install theme
-  dialog --title '' --infobox "installing theme" 3 50
+  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "installing theme" 3 50
   cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
   wait
 
 # clean everything up
-  dialog --title '' --infobox "Cleaning up" 3 50
+  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "Cleaning up" 3 50
   rm -rf $PWD/src
   rm -rf $PWD/theme
   rm -rf $PWD/color.tmp
   wait
-  dialog --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
+  dialog --backtitle "Custom Cursors v1.0" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
   exit
