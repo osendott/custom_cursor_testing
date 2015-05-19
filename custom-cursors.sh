@@ -3,6 +3,8 @@
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
 
+# copy dialogrc to ~/.dialogrc to control colors of script
+
 # set -x # uncomment this if you wanna see what's going on line-by-line, remove before distribution
 
 #############
