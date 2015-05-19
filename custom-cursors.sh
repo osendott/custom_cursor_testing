@@ -17,6 +17,9 @@ CHANGEDIR=$PWD/src # change to source directory in sub-shell
 OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
 retval="" # dialog uses stderr to output which button is pressed. this variable copies it, to be read & decide which button pressed (0 yes, 1 no)
+colorCount="" # count of svg files in directory
+pngCount="" # count of png files in directory
+curCount="" # count of .cursor files in directory
 
 # extract source files
 tar -xzf src.tar.gz
@@ -31,12 +34,13 @@ choice=$?
 case $choice in # read $choice, see which button pressed
 	# no (labeled as DARK in this script)
 	1) 
+	colorCount=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
 	(cd $PWD/src;
         	find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
           sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
           wait
           count=$((count+1))
-          dialog --title '' --infobox "Creating dark base $count" 3 50
+          dialog --title '' --infobox "Creating dark base $count of $colorCount"  3 50
         done)
         wait ;;
 esac
