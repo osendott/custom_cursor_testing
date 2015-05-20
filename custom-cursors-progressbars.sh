@@ -6,7 +6,7 @@ show_progress()
 {
 while [[ $PCT -le "100" ]] ; do
 PCT=$(( 100*$count/$totalCOUNT ))
-echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
 count=$((count+1))
 
@@ -161,7 +161,7 @@ wait
 procTITLE="Creating .png files..."
       count=$((count+1))
     PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+    echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
      
     else
@@ -182,7 +182,7 @@ procTITLE="Generating cursor files..."
 
     count=$((count+1))
     PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+    echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
     #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "$PCT" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
