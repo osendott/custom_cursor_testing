@@ -2,7 +2,16 @@
 # noname-cursors v0.9.9                     # current code-base written 17 MAY 2015
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
+show_progress()
+{
+while [[ $PCT -le "100" ]] ; do
+PCT=$(( 100*$count/$totalCOUNT ))
+echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
+sleep .08
+count=$((count+1))
 
+done
+}
 # copy dialogrc to ~/.dialogrc to control colors of script
 
 # set -x # uncomment this if you wanna see what's going on line-by-line, remove before distribution
@@ -10,11 +19,13 @@
 #############
 # variables # variables will be set by script @ runtime, this is just a list. BASH doesn't require you to declare variables.
 #############
+scriptNAME="Custom Cursors" # name of script (when we decide on one lol)
+scriptVER="0.9.9-2" # version number
 choice="" # light/dark response (same as $retval below)
 tmpColor="" # hold user color choice @ menu
 newColor="" # theme color to replace Default
 usrColor="" # custom color from dialog
-count="" # counter
+count="0" # counter
 CHANGEDIR=$PWD/src # change to source directory in sub-shell
 OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
@@ -29,27 +40,28 @@ tar -xzf theme.tar.gz
 wait
 
 # light/dark menu
-dialog --backtitle "Custom Cursors v1.0" --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
+dialog --backtitle "$scriptNAME $scriptVER" --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
 
 choice=$?
 
 case $choice in # read $choice, see which button pressed
 	# no (labeled as DARK in this script)
 	1) 
-	colorCount=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
+	
+          
+totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
 	(cd $PWD/src;
         	find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
           sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
-          wait
-          count=$((count+1))
-          dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "Creating dark base $count of $colorCount"  3 50
+procTITLE="Generating DARK files"
+show_progress
         done)
         wait ;;
 esac
 
 get_Color() # function created to loop display of dialog box until proper hex-code entered
 {
-  usrColor=$(dialog --backtitle "Custom Cursors v1.0" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
+  usrColor=$(dialog --backtitle "$scriptNAME $scriptVER" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
 
   retval=$? # get button press
 
@@ -68,7 +80,7 @@ get_Color() # function created to loop display of dialog box until proper hex-co
 }
 
 # show menu listing color choices
-dialog --backtitle "Custom Cursors v1.0" --menu "Select color:" 20 25 25\
+dialog --backtitle "$scriptNAME $scriptVER" --menu "Select color:" 20 25 25\
   "1" "Default" \
   "2" "Blue" \
   "3" "Brown" \
@@ -130,36 +142,40 @@ esac
 
 # recolor
   count=0
-  colorCount=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
+  totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
   (cd $PWD/src;
   find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
     if [[ `grep "$oldColor" "$file"` ]]; then
       sed -i "s/$oldColor/$newColor/g" "$file"
-      count=$((count+1))
-      wait
-      dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "adding $newColor to file $count of $colorCount" 3 50 # display dialog counting files colored
-    fi
+    procTITLE="Recoloring cursors..."      
+show_progress
+fi
 done)
+wait
 
 # create .png files
-  pngCount=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count how many svg files are in directory
+  totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count how many svg files are in directory
   count=0
   for fileSource in $PWD/src/*.svg
   do
     if [ -f "$fileSource" ]; then
+           file=$(echo $fileSource | cut -d'.' -f1)
+procTITLE="Creating .png files..."
       count=$((count+1))
-      file=$(echo $fileSource | cut -d'.' -f1)
-      dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "creating file $count of $pngCount" 3 50 # count how many files converted and how many remain
+    PCT=$(( 100*$count/$totalCOUNT ))
+    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
-      wait
+     
     else
       dialog --backtitle "Custom Cursors v1.0" --title 'ERROR' --infobox "no source files found!" 3 50
       exit
     fi
 done
+wait
 
 # create cursor files
-  curCount=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
+procTITLE="Generating cursor files..."
+  totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
   count=0
   for CURSOR in $PWD/src/*.cursor; do
     BASENAME=$CURSOR
@@ -167,21 +183,24 @@ done
     BASENAME=${BASENAME%.*}
 
     count=$((count+1))
-    dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "generating cursor $count of $curCount" 3 50 # display how many files converted and how many remain
+    PCT=$(( 100*$count/$totalCOUNT ))
+    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
+sleep .08
+    #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "$PCT" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
 
 # install theme
-  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "installing theme" 3 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "installing theme" 3 50
   cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
   wait
 
 # clean everything up
-  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "Cleaning up" 3 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "Cleaning up" 3 50
   rm -rf $PWD/src
   rm -rf $PWD/theme
   rm -rf $PWD/color.tmp
   wait
-  dialog --backtitle "Custom Cursors v1.0" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
   exit
