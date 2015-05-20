@@ -6,7 +6,7 @@ show_progress()
 {
 while [[ $PCT -le "100" ]] ; do
 PCT=$(( 100*$count/$totalCOUNT ))
-echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
+echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
 count=$((count+1))
 
@@ -19,6 +19,8 @@ done
 #############
 # variables # variables will be set by script @ runtime, this is just a list. BASH doesn't require you to declare variables.
 #############
+scriptNAME="Custom Cursors" # name of script (when we decide on one lol)
+scriptVER="0.9.9-2" # version number
 choice="" # light/dark response (same as $retval below)
 tmpColor="" # hold user color choice @ menu
 newColor="" # theme color to replace Default
@@ -38,7 +40,7 @@ tar -xzf theme.tar.gz
 wait
 
 # light/dark menu
-dialog --backtitle "Custom Cursors v1.0" --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
+dialog --backtitle "$scriptNAME $scriptVER" --yes-label "light" --no-label "dark" --yesno "Please choose base:" 5 25
 
 choice=$?
 
@@ -59,7 +61,7 @@ esac
 
 get_Color() # function created to loop display of dialog box until proper hex-code entered
 {
-  usrColor=$(dialog --backtitle "Custom Cursors v1.0" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
+  usrColor=$(dialog --backtitle "$scriptNAME $scriptVER" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
 
   retval=$? # get button press
 
@@ -78,7 +80,7 @@ get_Color() # function created to loop display of dialog box until proper hex-co
 }
 
 # show menu listing color choices
-dialog --backtitle "Custom Cursors v1.0" --menu "Select color:" 20 25 25\
+dialog --backtitle "$scriptNAME $scriptVER" --menu "Select color:" 20 25 25\
   "1" "Default" \
   "2" "Blue" \
   "3" "Brown" \
@@ -161,7 +163,7 @@ wait
 procTITLE="Creating .png files..."
       count=$((count+1))
     PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
+    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
      
     else
@@ -182,7 +184,7 @@ procTITLE="Generating cursor files..."
 
     count=$((count+1))
     PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --title "$procTITLE" --gauge "" 7 70 0
+    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
     #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "$PCT" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
@@ -190,15 +192,15 @@ sleep .08
 done
 
 # install theme
-  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "installing theme" 3 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "installing theme" 3 50
   cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
   wait
 
 # clean everything up
-  dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "Cleaning up" 3 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "Cleaning up" 3 50
   rm -rf $PWD/src
   rm -rf $PWD/theme
   rm -rf $PWD/color.tmp
   wait
-  dialog --backtitle "Custom Cursors v1.0" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
+  dialog --backtitle "$scriptNAME $scriptVER" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
   exit
