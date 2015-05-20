@@ -68,17 +68,17 @@ get_Color() # function created to loop display of dialog box until proper hex-co
 }
 
 # show menu listing color choices
-dialog --backtitle "Custom Cursors v1.0" --radiolist "Select color:" 20 25 25\
-  1 "Default" on \
-  2 "Blue" off \
-  3 "Brown" off \
-  4 "Green" off \
-  5 "Grey" off \
-  6 "Pink" off \
-  7 "Purple" off \
-  8 "Red" off \
-  9 "Yellow" off \
-  10 "Custom" off \
+dialog --backtitle "Custom Cursors v1.0" --menu "Select color:" 20 25 25\
+  "1" "Default" \
+  "2" "Blue" \
+  "3" "Brown" \
+  "4" "Green" \
+  "5" "Grey" \
+  "6" "Pink" \
+  "7" "Purple" \
+  "8" "Red" \
+  "9" "Yellow" \
+  "10" "Custom" \
 2> color.tmp # export choice (a number 1-10) to a temp file
 
 tmpColor=$(<color.tmp) # read choice (as number) from temp file, load into variable
