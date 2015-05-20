@@ -1,5 +1,7 @@
 # custom_cursor_testing
 
+current version: 0.9.9-2
+
 testing repo for custom_cursor project. use caution if using anything from this repo.
 getting close to a 1.0 release.
 
