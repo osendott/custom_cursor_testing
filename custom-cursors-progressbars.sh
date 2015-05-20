@@ -6,7 +6,7 @@ show_progress()
 {
 while [[ $PCT -le "100" ]] ; do
 PCT=$(( 100*$count/$totalCOUNT ))
-echo $PCT | dialog --title "processing..." --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
 sleep .08
 count=$((count+1))
 
@@ -51,7 +51,7 @@ totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg file
 	(cd $PWD/src;
         	find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
           sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
-
+procTITLE="Generating DARK files"
 show_progress
         done)
         wait ;;
@@ -146,7 +146,7 @@ esac
     if [[ `grep "$oldColor" "$file"` ]]; then
       sed -i "s/$oldColor/$newColor/g" "$file"
      wait
-      
+procTITLE="Recoloring cursors..."      
 show_progress
 fi
 done)
@@ -158,6 +158,7 @@ done)
   do
     if [ -f "$fileSource" ]; then
            file=$(echo $fileSource | cut -d'.' -f1)
+procTITLE="Creating .png files..."
       show_progress
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
       wait
@@ -168,20 +169,15 @@ done)
 done
 
 # create cursor files
-  totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
-	for CURSOR in $PWD/src/*.cursor; do
-    BASENAME=$CURSOR
-    BASENAME=${BASENAME##*/}
-    BASENAME=${BASENAME%.*}
-	
-	while [[ $PCT -le "100" ]] ; do
-PCT=$(( 100*$count/$totalCOUNT ))
-echo $PCT | dialog --title "processing..." --gauge "$count of $totalCOUNT...$PCT" 7 70 0
-sleep .08
-count=$((count+1))
-(cd $CHANGEDIR;xcursorgen $CHANGEDIR/$BASENAME.cursor $OUTDIR/$BASENAME > /dev/null)
-
-done
+count="0"  
+totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
+for CUR in src/*.cursor; do
+	BASENAME=$CUR
+	BASENAME=${BASENAME##*/}
+	BASENAME=${BASENAME%.*}
+procTITLE="Creating cursor files $CUR"
+show_progress
+(cd $CHANGEDIR;xcursorgen $CHANGEDIR/$BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
        
    # (cd $CHANGEDIR;xcursorgen $CHANGEDIR/$BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
 
