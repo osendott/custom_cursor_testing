@@ -203,4 +203,5 @@ done
   rm -rf $PWD/color.tmp
   wait
   dialog --backtitle "$scriptNAME $scriptVER" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
+clear
   exit
