@@ -169,18 +169,18 @@ procTITLE="Creating .png files..."
 done
 
 # create cursor files
-count="0"  
-totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
-for CUR in src/*.cursor; do
-	BASENAME=$CUR
-	BASENAME=${BASENAME##*/}
-	BASENAME=${BASENAME%.*}
-procTITLE="Creating cursor files $CUR"
-show_progress
-(cd $CHANGEDIR;xcursorgen $CHANGEDIR/$BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
-       
-   # (cd $CHANGEDIR;xcursorgen $CHANGEDIR/$BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
+  totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
+  count=0
+  for CURSOR in $PWD/src/*.cursor; do
+    BASENAME=$CURSOR
+    BASENAME=${BASENAME##*/}
+    BASENAME=${BASENAME%.*}
 
+    proc_TITLE="Creating cursor files..."
+    show_progress
+    #count=$((count+1))
+    #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "generating cursor $count of $curCount" 3 50 # display how many files converted and how many remain
+    (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
 
