@@ -145,11 +145,11 @@ esac
   find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
     if [[ `grep "$oldColor" "$file"` ]]; then
       sed -i "s/$oldColor/$newColor/g" "$file"
-     wait
-procTITLE="Recoloring cursors..."      
+    procTITLE="Recoloring cursors..."      
 show_progress
 fi
 done)
+wait
 
 # create .png files
   totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count how many svg files are in directory
@@ -159,16 +159,21 @@ done)
     if [ -f "$fileSource" ]; then
            file=$(echo $fileSource | cut -d'.' -f1)
 procTITLE="Creating .png files..."
-      show_progress
+      count=$((count+1))
+    PCT=$(( 100*$count/$totalCOUNT ))
+    echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+sleep .08
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
-      wait
+     
     else
       dialog --backtitle "Custom Cursors v1.0" --title 'ERROR' --infobox "no source files found!" 3 50
       exit
     fi
 done
+wait
 
 # create cursor files
+procTITLE="Generating cursor files..."
   totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
   count=0
   for CURSOR in $PWD/src/*.cursor; do
@@ -176,10 +181,11 @@ done
     BASENAME=${BASENAME##*/}
     BASENAME=${BASENAME%.*}
 
-    proc_TITLE="Creating cursor files..."
-    show_progress
-    #count=$((count+1))
-    #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "generating cursor $count of $curCount" 3 50 # display how many files converted and how many remain
+    count=$((count+1))
+    PCT=$(( 100*$count/$totalCOUNT ))
+    echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
+sleep .08
+    #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "$PCT" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
