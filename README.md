@@ -8,8 +8,7 @@ getting close to a 1.0 release.
 ![](screens/screen-03.png "custom-color")
 
 if testing the script, use arrow keys or mouse to select light/dark
-version, then use arrow-keys to highlight color choice, press space
-to select, and enter to continue (or again, just use your mouse)
+version, then use arrow-keys to highlight color choice, enter to select.
 
 if using a custom-color, a dialog will appear asking you to enter
 a custom hex-code for the color. enter your hex-code (including the #)
