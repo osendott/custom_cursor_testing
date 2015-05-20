@@ -186,7 +186,6 @@ procTITLE="Generating cursor files..."
     PCT=$(( 100*$count/$totalCOUNT ))
     echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
-    #dialog --backtitle "Custom Cursors v1.0" --title '' --infobox "$PCT" 3 50 # display how many files converted and how many remain
     (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
