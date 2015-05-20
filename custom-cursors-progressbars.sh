@@ -162,7 +162,6 @@ procTITLE="Creating .png files..."
       count=$((count+1))
     PCT=$(( 100*$count/$totalCOUNT ))
     echo $PCT | dialog --title "$procTITLE" --gauge "$count of $totalCOUNT...$PCT" 7 70 0
-sleep .08
       inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
      
     else
