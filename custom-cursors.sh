@@ -112,15 +112,13 @@ case $tmpColor in
 	colorName="Red" ;;
   9) newColor="#ffca28"
 	colorName="Yellow" ;;
-  10) get_Color # call function to display "enter hex-code" dialog
-	wait 
+  10) 
+  	until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do # until a valid hex-code has been entered, keep the dialog on screen
+    	get_Color
+  	done 
+	colorName="Custom" 
 
-  until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do # until a valid hex-code has been entered, keep the dialog on screen
-    get_Color
-  done 
-colorName="Custom" 
-
-  newColor=$usrColor ;; # make sure newColor has been set to users input
+  	newColor=$usrColor ;; # make sure newColor has been set to users input
   
 
   *) # if something went wrong an there's any number other than one of the valid choices in file, cleanup and exit
@@ -155,7 +153,6 @@ do
 case $themeStyle in
 Dark)
 sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$getFILES" ;;
-wait
 esac
 sed -i "s/$oldColor/$newColor/g" "$getFILES"
 fileSource=$(echo $getFILES | cut -d'.' -f1)
