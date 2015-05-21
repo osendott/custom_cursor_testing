@@ -45,17 +45,8 @@ choice=$?
 
 case $choice in # read $choice, see which button pressed
 	# no (labeled as DARK in this script)
-	1) 
-	
-          
-totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
-	(cd $PWD/src;
-        	find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
-          sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$file"
-procTITLE="Generating DARK files"
-show_progress
-        done)
-        wait ;;
+	1) themeStyle="Dark" ;;
+	0) themeStyle="Light" ;;
 esac
 
 get_Color() # function created to loop display of dialog box until proper hex-code entered
@@ -82,7 +73,7 @@ get_Color() # function created to loop display of dialog box until proper hex-co
 
 # show menu listing color choices
 dialog --backtitle "$scriptNAME $scriptVER" --menu "Select color:" 20 25 25\
-  "1" "Default" \
+  "1" "Numix (Default)" \
   "2" "Blue" \
   "3" "Brown" \
   "4" "Green" \
@@ -103,23 +94,34 @@ case $retval in # check button pressed
 0) # ok press
 
 case $tmpColor in
-  1) newColor="#d64933" ;;
-  2) newColor="#42a5f5" ;;
-  3) newColor="#8d6e63" ;;
-  4) newColor="#66bb6a" ;;
-  5) newColor="#bdbdbd" ;;
-  6) newColor="#f06292" ;;
-  7) newColor="#7e57c2" ;;
-  8) newColor="#ef5350" ;;
-  9) newColor="#ffca28" ;;
+  1) newColor="#d64933" 
+	colorName="Numix" ;;
+  2) newColor="#42a5f5" 
+	colorName="Blue" ;;
+  3) newColor="#8d6e63" 
+	colorName="Brown" ;;
+  4) newColor="#66bb6a" 
+	colorName="Green" ;;
+  5) newColor="#bdbdbd" 
+	colorName="Grey" ;;
+  6) newColor="#f06292"
+	colorName="Pink" ;;
+  7) newColor="#7e57c2"
+	colorName="Purple" ;;
+  8) newColor="#ef5350"
+	colorName="Red" ;;
+  9) newColor="#ffca28"
+	colorName="Yellow" ;;
   10) get_Color # call function to display "enter hex-code" dialog
 	wait 
 
   until [[ $usrColor =~ ^#[0-9A-Fa-f]{6}$ ]] ; do # until a valid hex-code has been entered, keep the dialog on screen
     get_Color
-  done
+  done 
+colorName="Custom" 
 
   newColor=$usrColor ;; # make sure newColor has been set to users input
+  
 
   *) # if something went wrong an there's any number other than one of the valid choices in file, cleanup and exit
   rm -rf $PWD/src
@@ -142,7 +144,7 @@ esac;;
 esac
 
 # recolor/convert .svg to .png/generate cursors
-procTITLE="Creating custom cursors..."
+procTITLE="Creating cursors with $themeStyle base and $colorName ($newColor) highlights"
   count=0
   totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
 for getFILES in $PWD/src/*.svg
@@ -150,6 +152,10 @@ do
  BASENAME=$getFILES
     BASENAME=${BASENAME##*/}
     BASENAME=${BASENAME%.*}
+case $themeStyle in
+Dark)
+sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$getFILES" ;;
+esac
 sed -i "s/$oldColor/$newColor/g" "$getFILES"
 fileSource=$(echo $getFILES | cut -d'.' -f1)
 wait
