@@ -50,7 +50,7 @@ scriptNAME="Custom Cursors"
 scriptVER="0.9.9-3"
 count="0"
 sourceDIR="$PWD/src"
-outDIR="$PWD/theme/custom_cursors/cursors"
+outputDIR="$PWD/theme/custom_cursors/cursors"
 oldCOLOR="#d64933"
 
 # extract source files
@@ -147,7 +147,7 @@ fileNAME=$(echo $allFILES | cut -d'.' -f1)
 inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
 wait
 
-(cd $sourceDIR;xcursorgen $BASENAME.cursor $outDIR/$BASENAME > /dev/null)
+(cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
 
 show_progress
 
