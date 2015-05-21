@@ -141,32 +141,26 @@ esac;;
   exit ;;
 esac
 
-# recolor
-procTITLE="Generating customized .png files..."
+# recolor/convert .svg to .png/generate cursors
+procTITLE="Creating custom cursors..."
   count=0
   totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
 for getFILES in $PWD/src/*.svg
 do
+ BASENAME=$getFILES
+    BASENAME=${BASENAME##*/}
+    BASENAME=${BASENAME%.*}
 sed -i "s/$oldColor/$newColor/g" "$getFILES"
 fileSource=$(echo $getFILES | cut -d'.' -f1)
+wait
       inkscape $getFILES --export-png=$fileSource.png --export-dpi=90 > /dev/null 
+wait
+
+(cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null)
 show_progress
 done
 wait
 
-# create cursor files
-procTITLE="Generating cursor files..."
-  totalCOUNT=`ls -1 $PWD/src/*.cursor 2>/dev/null | wc -l` # count .cursor files
-  count=0
-  for CURSOR in $PWD/src/*.cursor; do
-    BASENAME=$CURSOR
-    BASENAME=${BASENAME##*/}
-    BASENAME=${BASENAME%.*}
-
-    show_progress 
-   (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
-    wait
-done
 
 # install theme
   dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "installing theme" 3 50
