@@ -5,6 +5,25 @@
 # by: William Osendott & Umut Topuzoglu       #
 ###############################################
 
+# I'm sure this part can be improved?
+which "inkscape"  > /dev/null 2>&1
+  if [[ $? -eq 1 ]]; then
+    echo "I'm sorry Inkscape is required to run this script..."
+    exit
+  else
+    which "xcursorgen" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+      echo "I'm sorry xcursorgen is required to run this script..."
+      exit
+    else
+      which "dialog" > /dev/null 2>&1
+      if [[ $? -eq 1 ]]; then
+        echo "I'm sorry dialog is required to run this script..."
+        exit
+      fi
+    fi
+  fi
+
 #########################
 # progress bar function #
 #########################
@@ -149,7 +168,7 @@ do
 
   (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
   wait
-  
+
   show_progress
 
 done
