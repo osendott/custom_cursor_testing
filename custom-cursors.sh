@@ -2,6 +2,7 @@
 # noname-cursors v0.9.9                     # current code-base written 17 MAY 2015
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
+
 show_progress() # display progress bar
 {
 PCT=$(( 100*$count/$totalCOUNT ))
@@ -9,28 +10,28 @@ echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --g
 sleep .06
 count=$((count+1))
 }
-# copy dialogrc to ~/.dialogrc to control colors of script
 
+# copy dialogrc to ~/.dialogrc to control colors of script
 # set -x # uncomment this if you wanna see what's going on line-by-line, remove before distribution
 
 #############
-# variables # variables will be set by script @ runtime, this is just a list. BASH doesn't require you to declare variables.
+# variables # list of variables used by script
 #############
 scriptNAME="Custom Cursors" # name of script (when we decide on one lol)
 scriptVER="0.9.9-2" # version number
-choice="" # light/dark response (same as $retval below)
-getColor="" # holds custom-hex until validated
-tmpColor="" # hold user color choice @ menu
-newColor="" # theme color to replace Default
-usrColor="" # custom color from dialog
+# choice="" # light/dark response (same as $retval below)
+# getColor="" # holds custom-hex until validated
+# tmpColor="" # hold user color choice @ menu
+# newColor="" # theme color to replace Default
+# usrColor="" # custom color from dialog
 count="0" # number of files processed
 CHANGEDIR=$PWD/src # change to source directory in sub-shell
 OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
-retval="" # dialog uses stderr to output which button is pressed. this variable copies it, to be read & decide which button pressed (0 yes, 1 no)
-totalCOUNT="" # total number of files to be processed
-PCT="" # percentage of work completed
-procTITLE="working" # name of current process, displayed at top of progress bars
+# retval="" # dialog uses stderr to output which button is pressed. this variable copies it, to be read & decide which button pressed (0 yes, 1 no)
+# totalCOUNT="" # total number of files to be processed
+# PCT="" # percentage of work completed
+# procTITLE="" # name of current process, displayed at top of progress bars
 
 
 # extract source files
@@ -143,7 +144,6 @@ esac
 
 # recolor/convert .svg to .png/generate cursors
 procTITLE="Creating cursors with $themeStyle base and $colorName ($newColor) highlights"
-  count=0
   totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
 for getFILES in $PWD/src/*.svg
 do
