@@ -6,17 +6,17 @@
 ###############################################
 
 # I'm sure this part can be improved?
-which "inkscape"  > /dev/null 2>&1
+type "inkscape"  > /dev/null 2>&1
   if [[ $? -eq 1 ]]; then
     echo "I'm sorry Inkscape is required to run this script..."
     exit
   else
-    which "xcursorgen" > /dev/null 2>&1
+    type "xcursorgen" > /dev/null 2>&1
     if [[ $? -eq 1 ]]; then
       echo "I'm sorry xcursorgen is required to run this script..."
       exit
     else
-      which "dialog" > /dev/null 2>&1
+      type "dialog" > /dev/null 2>&1
       if [[ $? -eq 1 ]]; then
         echo "I'm sorry dialog is required to run this script..."
         exit
