@@ -5,7 +5,9 @@
 # by: William Osendott & Umut Topuzoglu       #
 ###############################################
 
-# I'm sure this part can be improved? (make sure dependencies are met)
+######################
+# Check dependencies # (I'm sure this can be improved?)
+######################
 type "inkscape" >/dev/null 2>&1 || { echo >&2 "Inkscape required for script to operate..."; exit 1; }
 type "xcursorgen" >/dev/null 2>&1 || { echo >&2 "Xcursorgen required for script to operate..."; exit 1; }
 type "dialog" >/dev/null 2>&1 || { echo >&2 "Dialog required for script to operate..."; exit 1; }
