@@ -2,15 +2,12 @@
 # noname-cursors v0.9.9                     # current code-base written 17 MAY 2015
 # by: William Osendott  & Umut Topuzoglu    #
 #############################################
-show_progress()
+show_progress() # display progress bar
 {
-while [[ $PCT -le "100" ]] ; do
 PCT=$(( 100*$count/$totalCOUNT ))
 echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
 sleep .08
 count=$((count+1))
-
-done
 }
 # copy dialogrc to ~/.dialogrc to control colors of script
 
@@ -22,17 +19,19 @@ done
 scriptNAME="Custom Cursors" # name of script (when we decide on one lol)
 scriptVER="0.9.9-2" # version number
 choice="" # light/dark response (same as $retval below)
+getColor="" # holds custom-hex until validated
 tmpColor="" # hold user color choice @ menu
 newColor="" # theme color to replace Default
 usrColor="" # custom color from dialog
-count="0" # counter
+count="0" # number of files processed
 CHANGEDIR=$PWD/src # change to source directory in sub-shell
 OUTDIR=$PWD/theme/custom_cursors/cursors # where to generate files
 oldColor="#d64933" # default color for cursors
 retval="" # dialog uses stderr to output which button is pressed. this variable copies it, to be read & decide which button pressed (0 yes, 1 no)
-colorCount="" # count of svg files in directory
-pngCount="" # count of png files in directory
-curCount="" # count of .cursor files in directory
+totalCOUNT="" # total number of files to be processed
+PCT="" # percentage of work completed
+procTITLE="working" # name of current process, displayed at top of progress bars
+
 
 # extract source files
 tar -xzf src.tar.gz
@@ -61,11 +60,13 @@ esac
 
 get_Color() # function created to loop display of dialog box until proper hex-code entered
 {
-  usrColor=$(dialog --backtitle "$scriptNAME $scriptVER" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
+  getColor=$(dialog --backtitle "$scriptNAME $scriptVER" --inputbox "Enter hex-code:" 8 40 2>&1 >/dev/tty)
 
   retval=$? # get button press
 
   case $retval in
+    0) # ok
+	usrColor=$getColor ;;
     1) # cancel
     rm -rf $PWD/src
     rm -rf $PWD/theme
@@ -161,10 +162,11 @@ wait
     if [ -f "$fileSource" ]; then
            file=$(echo $fileSource | cut -d'.' -f1)
 procTITLE="Creating .png files..."
-      count=$((count+1))
-    PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
-      inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
+      #count=$((count+1))
+    #PCT=$(( 100*$count/$totalCOUNT ))
+    #echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
+	show_progress      
+	inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
      
     else
       dialog --backtitle "Custom Cursors v1.0" --title 'ERROR' --infobox "no source files found!" 3 50
@@ -182,11 +184,12 @@ procTITLE="Generating cursor files..."
     BASENAME=${BASENAME##*/}
     BASENAME=${BASENAME%.*}
 
-    count=$((count+1))
-    PCT=$(( 100*$count/$totalCOUNT ))
-    echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
-sleep .08
-    (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
+    #count=$((count+1))
+    #PCT=$(( 100*$count/$totalCOUNT ))
+    #echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
+#sleep .08
+	show_progress 
+   (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
 
