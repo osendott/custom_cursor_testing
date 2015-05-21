@@ -69,8 +69,8 @@ dialog --backtitle "$scriptNAME $scriptVER" --yes-label "Light" --no-label "Dark
 usrINPUT=$?
 
 case $usrINPUT in
-  0) themeSTYLE="Light"  ;;
-  1) themeSTYLE="Dark" ;;
+  0) cursorBASE="Light"  ;;
+  1) cursorBASE="Dark" ;;
   255) cleanup
   exit ;;
 esac
@@ -130,7 +130,7 @@ case $usrINPUT in
 esac
 
 # process files
-procTITLE="Creating $themeSTYLE cursors with $colorNAME ($newCOLOR) highlights..."
+procTITLE="Creating $cursorBASE cursors with $colorNAME ($newCOLOR) highlights..."
 
 totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l`
 
@@ -140,7 +140,7 @@ do
   BASENAME=${BASENAME##*/}
   BASENAME=${BASENAME%.*}
 
-  case  $themeSTYLE in
+  case  $cursorBASE in
     Dark)
     sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$eachFILE" ;;
   esac
