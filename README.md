@@ -8,7 +8,6 @@ getting close to a 1.0 release.
 ![](screens/screen-01.png "dark/light") ![](screens/screen-02.png "colors")
 ![](screens/screen-03.png "custom-color") ![](screens/screen-04.png "colors")
 ![](screens/screen-05.png "colors")
-*screenshots are from a previous base, looks have changed slightly*
 
 if testing the script, use arrow keys or mouse to select light/dark
 version, then use arrow-keys to highlight color choice, enter to select.
