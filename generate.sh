@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ###############################################
 # Custom Cursors v0.9.9-3 reWrite 21 MAY 2015 #
@@ -117,7 +117,7 @@ case $usrINPUT in
       colorNAME="Custom"
       newCOLOR=$usrCOLOR ;;
 
-    *) cleanup ;; 
+    *) cleanup ;;
   esac ;;
 
   1) cleanup ;;
@@ -142,14 +142,14 @@ do
 
   sed -i "s/$oldCOLOR/$newCOLOR/g" "$allFILES"
 
-fileNAME=$(echo $allFILES | cut -d'.' -f1)
+    fileNAME=$(echo $allFILES | cut -d'.' -f1)
 
-inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
-wait
+      inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
+      wait
 
-(cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
+        (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
 
-show_progress
+  show_progress
 
 done
 
@@ -159,4 +159,3 @@ cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -rm
 # display exit message & cleanup
 dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 10 50
 cleanup
-    
