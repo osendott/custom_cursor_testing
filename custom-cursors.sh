@@ -6,7 +6,7 @@ show_progress() # display progress bar
 {
 PCT=$(( 100*$count/$totalCOUNT ))
 echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
-sleep .08
+sleep .06
 count=$((count+1))
 }
 # copy dialogrc to ~/.dialogrc to control colors of script
@@ -142,36 +142,15 @@ esac;;
 esac
 
 # recolor
+procTITLE="Generating customized .png files..."
   count=0
   totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count number of svg files
-  (cd $PWD/src;
-  find . -type f -name '*.svg' -print0 | while IFS= read -r -d '' file; do
-    if [[ `grep "$oldColor" "$file"` ]]; then
-      sed -i "s/$oldColor/$newColor/g" "$file"
-    procTITLE="Recoloring cursors..."      
+for getFILES in $PWD/src/*.svg
+do
+sed -i "s/$oldColor/$newColor/g" "$getFILES"
+fileSource=$(echo $getFILES | cut -d'.' -f1)
+      inkscape $getFILES --export-png=$fileSource.png --export-dpi=90 > /dev/null 
 show_progress
-fi
-done)
-wait
-
-# create .png files
-  totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l` # count how many svg files are in directory
-  count=0
-  for fileSource in $PWD/src/*.svg
-  do
-    if [ -f "$fileSource" ]; then
-           file=$(echo $fileSource | cut -d'.' -f1)
-procTITLE="Creating .png files..."
-      #count=$((count+1))
-    #PCT=$(( 100*$count/$totalCOUNT ))
-    #echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
-	show_progress      
-	inkscape $fileSource --export-png=$file.png --export-dpi=90 > /dev/null # pipe output to nowhere so it's not shown on screen
-     
-    else
-      dialog --backtitle "Custom Cursors v1.0" --title 'ERROR' --infobox "no source files found!" 3 50
-      exit
-    fi
 done
 wait
 
@@ -184,11 +163,7 @@ procTITLE="Generating cursor files..."
     BASENAME=${BASENAME##*/}
     BASENAME=${BASENAME%.*}
 
-    #count=$((count+1))
-    #PCT=$(( 100*$count/$totalCOUNT ))
-    #echo $PCT | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
-#sleep .08
-	show_progress 
+    show_progress 
    (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null) # pipe output to nowhere so it's not shown on screen
     wait
 done
