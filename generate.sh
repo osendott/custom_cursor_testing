@@ -22,7 +22,7 @@ cleanup()
 {
 rm -rf $PWD/src
 rm -rf $PWD/theme
-rm -rf $PWD/usrCHOICE.tmp
+rm -rf $PWD/usrCHOICE
 clear
 exit
 }
@@ -82,9 +82,9 @@ dialog --backtitle "$scriptNAME $scriptVER" --menu "Choose highlight color..." 2
 "8" "Red" \
 "9" "Yellow" \
 "10" "Custom" \
-2> usrCHOICE.tmp
+2> usrCHOICE
 
-usrCHOICE=$(<usrCHOICE.tmp)
+usrCHOICE=$(<usrCHOICE)
 
 usrINPUT=$?
 
