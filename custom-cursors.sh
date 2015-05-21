@@ -155,6 +155,7 @@ do
 case $themeStyle in
 Dark)
 sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$getFILES" ;;
+wait
 esac
 sed -i "s/$oldColor/$newColor/g" "$getFILES"
 fileSource=$(echo $getFILES | cut -d'.' -f1)
