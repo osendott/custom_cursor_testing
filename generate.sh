@@ -58,12 +58,16 @@ sourceDIR="$PWD/src"
 outputDIR="$PWD/theme/custom_cursors/cursors"
 oldCOLOR="#d64933"
 
-# extract source files
+########################
+# extract source files #
+########################
 tar -xzf src.tar.gz
 tar -xzf theme.tar.gz
 wait
 
-# show light/dark choice
+##########################
+# show light/dark choice #
+##########################
 dialog --backtitle "$scriptNAME $scriptVER" --yes-label "Light" --no-label "Dark" --yesno "Please choose base..." 5 25
 
 usrINPUT=$?
@@ -75,7 +79,9 @@ case $usrINPUT in
   exit ;;
 esac
 
-# show highlight color choices
+################################
+# show highlight color choices #
+################################
 dialog --backtitle "$scriptNAME $scriptVER" --menu "Choose highlight color..." 20 25 25 \
 "1" "Numix (Default)" \
 "2" "Blue" \
@@ -129,7 +135,9 @@ case $usrINPUT in
   255) cleanup ;;
 esac
 
-# process files
+#################
+# process files #
+#################
 procTITLE="Creating $cursorBASE cursors with $colorNAME ($newCOLOR) highlights..."
 
 totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l`
@@ -159,9 +167,13 @@ do
 
 done
 
-# install generated files
+###########################
+# install generated files #
+###########################
 cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -rm
 
-# display exit message & cleanup
+##################################
+# display exit message & cleanup #
+##################################
 dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 10 50
 cleanup
