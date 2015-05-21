@@ -156,27 +156,22 @@ sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#0
 esac
 sed -i "s/$oldColor/$newColor/g" "$getFILES"
 fileSource=$(echo $getFILES | cut -d'.' -f1)
+inkscape $getFILES --export-png=$fileSource.png --export-dpi=90 > /dev/null 
 wait
-      inkscape $getFILES --export-png=$fileSource.png --export-dpi=90 > /dev/null 
-wait
-
 (cd $CHANGEDIR;xcursorgen $BASENAME.cursor $OUTDIR/$BASENAME > /dev/null)
 show_progress
 done
-wait
 
 
 # install theme
   dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "installing theme" 3 50
   cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -R
-  wait
 
 # clean everything up
   dialog --backtitle "$scriptNAME $scriptVER" --title '' --infobox "Cleaning up" 3 50
   rm -rf $PWD/src
   rm -rf $PWD/theme
   rm -rf $PWD/color.tmp
-  wait
   dialog --backtitle "$scriptNAME $scriptVER" --title 'Complete' --msgbox 'Cursor files have been generated and installed. Use tweak-tool to set cursor theme to custom-cursors. Enjoy!' 10 50
 clear
   exit
