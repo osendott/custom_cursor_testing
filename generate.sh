@@ -129,22 +129,22 @@ procTITLE="Creating $themeSTYLE cursors with $colorNAME ($newCOLOR) highlights..
 
 totalCOUNT=`ls -1 $PWD/src/*.svg 2>/dev/null | wc -l`
 
-for allFILES in $PWD/src/*.svg
+for eachFILE in $PWD/src/*.svg
 do
-  BASENAME=$allFILES
+  BASENAME=$eachFILE
   BASENAME=${BASENAME##*/}
   BASENAME=${BASENAME%.*}
 
   case  $themeSTYLE in
     Dark)
-    sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$allFILES" ;;
+    sed -i 's/#e8e8e8/#ff0000/g;s/#2d2d2d/#e8e8e8/g;s/#ff0000/#2d2d2d/g;s/#ffffff/#000000/g' "$eachFILE" ;;
   esac
 
-  sed -i "s/$oldCOLOR/$newCOLOR/g" "$allFILES"
+  sed -i "s/$oldCOLOR/$newCOLOR/g" "$eachFILE"
 
-  fileNAME=$(echo $allFILES | cut -d'.' -f1)
+  fileNAME=$(echo $eachFILE | cut -d'.' -f1)
 
-  inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
+  inkscape $eachFILE --export-png=$fileNAME.png --export-dpi=90 > /dev/null
   wait
 
   (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
