@@ -172,7 +172,7 @@ done
 ###########################
 # install generated files #
 ###########################
-cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -rm
+cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -r
 
 ##################################
 # display exit message & cleanup #
