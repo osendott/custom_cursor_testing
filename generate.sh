@@ -148,7 +148,8 @@ do
   wait
 
   (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
-
+  wait
+  
   show_progress
 
 done
