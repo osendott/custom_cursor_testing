@@ -142,12 +142,12 @@ do
 
   sed -i "s/$oldCOLOR/$newCOLOR/g" "$allFILES"
 
-    fileNAME=$(echo $allFILES | cut -d'.' -f1)
+  fileNAME=$(echo $allFILES | cut -d'.' -f1)
 
-      inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
-      wait
+  inkscape $allFILES --export-png=$fileNAME.png --export-dpi=90 > /dev/null
+  wait
 
-        (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
+  (cd $sourceDIR;xcursorgen $BASENAME.cursor $outputDIR/$BASENAME > /dev/null)
 
   show_progress
 
