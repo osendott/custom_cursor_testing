@@ -1,6 +1,6 @@
 # custom_cursor_testing
 
-current version: 0.9.9-2
+current version: 0.9.9-e
 
 testing repo for custom_cursor project. use caution if using anything from this repo.
 getting close to a 1.0 release.
@@ -8,6 +8,7 @@ getting close to a 1.0 release.
 ![](screens/screen-01.png "dark/light")
 ![](screens/screen-02.png "colors")
 ![](screens/screen-03.png "custom-color")
+*screenshots are from a previous base, looks have changed slightly*
 
 if testing the script, use arrow keys or mouse to select light/dark
 version, then use arrow-keys to highlight color choice, enter to select.
