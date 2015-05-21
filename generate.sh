@@ -18,7 +18,7 @@ type "dialog" >/dev/null 2>&1 || { echo >&2 "Dialog required for script to opera
 show_progress()
 {
 percentage=$(( 100*$count/$totalCOUNT ))
-echo $percentage | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 7 70 0
+echo $percentage | dialog --backtitle "$scriptNAME $scriptVER" --title "$procTITLE" --gauge "" 5 70 0
 count=$((count+1))
 }
 
@@ -84,7 +84,7 @@ esac
 ################################
 # show highlight color choices #
 ################################
-dialog --backtitle "$scriptNAME $scriptVER" --menu "Choose highlight color..." 20 25 25 \
+dialog --backtitle "$scriptNAME $scriptVER" --menu "Choose highlight color..." 17 29 15 \
 "1" "Numix (Default)" \
 "2" "Blue" \
 "3" "Brown" \
@@ -177,5 +177,5 @@ cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -r
 ##################################
 # display exit message & cleanup #
 ##################################
-dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 10 50
+dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
 cleanup
