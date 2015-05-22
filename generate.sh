@@ -177,5 +177,5 @@ cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -r
 ##################################
 # display exit message & cleanup #
 ##################################
-dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
+dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. Using Tweak-Tool, set icon theme to Custom-Cursors. Enjoy!" 8 50
 cleanup
