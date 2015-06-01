@@ -55,7 +55,7 @@ esac
 # Variables #
 #############
 scriptNAME="Custom Cursors"
-scriptVER="0.9.9-3"
+scriptVER="0.9.9-4"
 count="0"
 sourceDIR="$PWD/src"
 outputDIR="$PWD/theme/custom_cursors/cursors"
