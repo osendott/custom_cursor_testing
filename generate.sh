@@ -1,9 +1,9 @@
 #!/bin/bash
 
-###############################################
-# Custom Cursors v0.9.9-3 reWrite 21 MAY 2015 #
-# by: William Osendott & Umut Topuzoglu       #
-###############################################
+############################################### #
+# Custom Cursors v0.9.9-4 CODEBASE: 21 MAY 2015 #
+# by: William Osendott & Umut Topuzoglu         #
+################################################# 
 
 ######################
 # Check dependencies # (I'm sure this can be improved? need to atleast add dialogs explaining why it's exiting)
