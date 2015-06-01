@@ -6,11 +6,12 @@
 ###############################################
 
 ######################
-# Check dependencies # (I'm sure this can be improved?)
+# Check dependencies # (I'm sure this can be improved? need to atleast add dialogs explaining why it's exiting)
 ######################
 type "inkscape" >/dev/null 2>&1 || { echo >&2 "Inkscape required for script to operate..."; exit 1; }
 type "xcursorgen" >/dev/null 2>&1 || { echo >&2 "Xcursorgen required for script to operate..."; exit 1; }
 type "dialog" >/dev/null 2>&1 || { echo >&2 "Dialog required for script to operate..."; exit 1; }
+type "gksudo" >/dev/null 2>&1 || { echo >&2 "Dialog required for script to operate..."; exit 1; }
 
 #########################
 # progress bar function #
@@ -172,10 +173,28 @@ done
 ###########################
 # install generated files #
 ###########################
-cp $PWD/theme/custom_cursors/. ~/.icons/custom-cursors/ -r
+usrPassword="$( gksudo --print-pass --message 'Provide permission for the process. Type your password, or press Cancel.' -- : 2>/dev/null )"
+
+ # Check for null entry or cancellation.
+if [[ ${?} != 0 || -z ${usrPassword} ]]
+then
+    # need to add dialog message here
+    exit 4
+fi
+
+ # Check that the password is valid.
+if ! sudo -kSp '' [ 1 ] <<<"${usrPassword}" 2>/dev/null
+then
+    # need to add dialog message here too
+    exit 4
+fi
+
+echo -e $usrPassword | sudo -S cp $PWD/theme/custom_cursors/. /usr/share/icons/custom-cursors/ -r
+
+
 
 ##################################
 # display exit message & cleanup #
 ##################################
-dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. Using Tweak-Tool, set icon theme to Custom-Cursors. Enjoy!" 8 50
+dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
 cleanup
