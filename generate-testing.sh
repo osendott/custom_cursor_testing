@@ -176,11 +176,8 @@ usrPassword=$(dialog --backtitle $scriptNAME $scriptVER --passwordbox "Please en
 
 echo -e $usrPassword | sudo -S cp $PWD/theme/custom_cursors/. /usr/share/icons/custom-cursors/ -r
 
-checkPASS=$?
-
-case $checkPASS in
-1) echo "wrong password, installing to ~/.icons instead..."
-esac
+## need to figure out the exit-status for an incorrect password
+## and if password is incorrect, exit/ask again/install to ~/.icons instead
 
 ##################################
 # display exit message & cleanup #
