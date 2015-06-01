@@ -173,12 +173,13 @@ done
 ###########################
 # install generated files #
 ###########################
-usrPassword="$( gksudo --print-pass --message 'Installing to usr/share/icons requires sudo password. Type your password, or press Cancel.' -- : 2>/dev/null )"
+usrPassword="$( gksudo --print-pass --message 'Installing to usr/share/icons requires sudo password. Type your password, or press Cancel to about.' -- : 2>/dev/null )"
 
  # Check for null entry or cancellation.
 if [[ ${?} != 0 || -z ${usrPassword} ]]
 then
     # need to add dialog message here
+    cleanup
     exit 4
 fi
 
@@ -186,6 +187,7 @@ fi
 if ! sudo -kSp '' [ 1 ] <<<"${usrPassword}" 2>/dev/null
 then
     # need to add dialog message here too
+    cleanup
     exit 4
 fi
 
