@@ -198,5 +198,5 @@ echo -e $usrPassword | sudo -S cp $PWD/theme/custom_cursors/. /usr/share/icons/c
 ##################################
 # display exit message & cleanup #
 ##################################
-dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your ~/.icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
+dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your /usr/share/icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
 cleanup
