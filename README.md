@@ -1,6 +1,6 @@
 # custom_cursor_testing
 
-current version: 0.9.9-4 (getting close to 1.0 :) )
+current version: 0.9.9-4 (getting close to 1.0)
 
 testing repo for custom_cursor project.
 
