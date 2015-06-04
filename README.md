@@ -1,9 +1,8 @@
 # custom_cursor_testing
 
-current version: 0.9.9-4
+current version: 0.9.9-4 (getting close to 1.0 :) )
 
-testing repo for custom_cursor project. use caution if using anything from this repo.
-getting close to a 1.0 release.
+testing repo for custom_cursor project.
 
 ![](screens/screen-01.png "dark/light") ![](screens/screen-02.png "colors")
 ![](screens/screen-03.png "custom-color") ![](screens/screen-04.png "colors")
