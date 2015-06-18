@@ -113,9 +113,9 @@ case $usrINPUT in
     colorNAME="Brown" ;;
     4) newCOLOR="#66bb6a"
     colorNAME="Green" ;;
-    5) newCOLOR="bdbdbd"
+    5) newCOLOR="#bdbdbd"
     colorNAME="Grey" ;;
-    6) newCOLOR="f06292"
+    6) newCOLOR="#f06292"
     colorNAME="Pink" ;;
     7) newCOLOR="#7e57c2"
     colorNAME="Purple" ;;
