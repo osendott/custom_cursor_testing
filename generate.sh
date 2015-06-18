@@ -192,6 +192,8 @@ then
 fi
 
 echo -e $usrPassword | sudo -S cp $PWD/theme/custom_cursors/. /usr/share/icons/custom-cursors/ -r
+echo -e $usrPassword | sudo -S update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/custom-cursors/cursor.theme 50
+echo -e $usrPassword | sudo -S update-alternatives --set x-cursor-theme /usr/share/icons/custom-cursors/cursor.theme
 
 
 
@@ -199,4 +201,5 @@ echo -e $usrPassword | sudo -S cp $PWD/theme/custom_cursors/. /usr/share/icons/c
 # display exit message & cleanup #
 ##################################
 dialog --backtitle "$scriptNAME $scriptVER" --title "Thank You!" --msgbox "Cursor files have been generated and installed to your /usr/share/icons directory. You can use tweak-tool to set cursor theme to Custom-Cursors. Enjoy!" 8 50
+# if the one-click code works properly, can remove the "use tweak-tool..." part from dialog"
 cleanup
